@@ -150,7 +150,7 @@ try_start() {
     fi
 
     mkdir -p "${WECHAT_FILES_DIR}" "${WECHAT_HOME_DIR}"
-    ln -snf "${WECHAT_FILES_DIR}" "${WECHAT_HOME_DIR}/xwechat_files"
+    ln -sn "${WECHAT_FILES_DIR}" "${HOME}/xwechat_files"
 
     BWRAP_ARGS=(
         # Drop privileges
@@ -162,13 +162,13 @@ try_start() {
         # /usr
         --ro-bind /usr{,}
         --symlink usr/lib /lib
-        --symlink usr/lib /lib64
+        --symlink usr/lib64 /lib64
         --symlink usr/bin /bin
         --symlink usr/bin /sbin
         --bind /usr/bin/{true,lsblk}
 
         # /sandbox
-        --ro-bind /{usr/lib/flatpak-xdg-utils,sandbox}/xdg-open
+        --ro-bind /{usr/bin,sandbox}/xdg-open
         --ro-bind /{usr/lib/wechat-universal/usr/bin,sandbox}/dde-file-manager
 
         # /dev
@@ -205,7 +205,7 @@ try_start() {
 
         # /home
         --bind "${WECHAT_HOME_DIR}" "${HOME}"
-        --bind "${WECHAT_FILES_DIR}"{,}
+        --bind "${WECHAT_FILES_DIR}" "${HOME}/xwechat_files"
         --bind-try "${HOME}/.pki"{,}
         --ro-bind-try "${HOME}/.fontconfig"{,}
         --ro-bind-try "${HOME}/.fonts"{,}
