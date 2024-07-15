@@ -1,33 +1,32 @@
-# Maintainer: 7Ji <pugokushin at gmail dot com>
-# Maintainer: leaeasy <leaeasy at gmail dot com>
-# Maintainer: devome <evinedeng at hotmail dot com>
+# Maintainer: 7Ji <pugokushin@gmail.com>
+# Contributor: leaeasy <leaeasy@gmail.com>
+# Contributor: devome <evinedeng@hotmail.com>
 
 _pkgname=wechat-universal
 pkgname=${_pkgname}-bwrap
 pkgver=1.0.0.242
 pkgrel=5
 pkgdesc="WeChat (Universal) with bwrap sandbox"
-arch=('x86_64' 'aarch64' 'loong64')
+arch=('amd64' 'aarch64' 'loong64')
 url="https://weixin.qq.com"
 license=('proprietary' 'GPLv3') # GPLv3 as desktop-app was statically linked-in, refer: https://aur.archlinux.org/packages/wechat-universal-bwrap#comment-964013
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 replaces=('wechat-beta'{,-bwrap})
 depends=(
-    'alsa-lib'
+    'libasound2'
     'at-spi2-core'
     'bubblewrap'
-    'flatpak-xdg-utils'
-    'libxcomposite'
-    'libxkbcommon-x11'
-    'libxrandr'
-    'mesa'
-    'nss'
-    'pango'
-    'xcb-util-image'
-    'xcb-util-keysyms'
-    'xcb-util-renderutil'
-    'xcb-util-wm'
+    'libxcomposite1'
+    'libxkbcommon-x11-0'
+    'libxrandr2'
+    'libglx-mesa0'
+    'libnss3'
+    'libpango-1.0-0'
+    'libxcb-image0'
+    'libxcb-keysyms1'
+    'libxcb-render-util0'
+    'libxcb-icccm4'
     'xdg-desktop-portal'
     'xdg-user-dirs'
 )
@@ -51,9 +50,18 @@ _rpm_url_common_2="/os/Packages/${_rpm_stem}"
 _deb_stem="com.tencent.wechat_1.0.0.241"
 _deb_url_common="https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/${_deb_stem}"
 
-source_x86_64=("${_rpm_url_common_1}x86_64${_rpm_url_common_2}_amd64.rpm")
-source_aarch64=("${_rpm_url_common_1}aarch64${_rpm_url_common_2}_arm64.rpm")
-source_loong64=("${_deb_url_common}_loongarch64.deb")
+source_amd64=(
+    ${source[@]}
+    "${_rpm_url_common_1}x86_64${_rpm_url_common_2}_amd64.rpm"
+)
+source_aarch64=(
+    ${source[@]}
+    "${_rpm_url_common_1}aarch64${_rpm_url_common_2}_arm64.rpm"
+)
+source_loong64=(
+    ${source[@]}
+    "${_deb_url_common}_loongarch64.deb"
+)
 
 noextract=("${_rpm_stem}"_{amd,arm}64.rpm "${_deb_stem}"_loongarch64.deb )
 
@@ -65,13 +73,16 @@ sha256sums=(
     'f05f6f907898740dab9833c1762e56dbc521db3c612dd86d2e2cd4b81eb257bf'
 )
 
-sha256sums_x86_64=(
+sha256sums_amd64=(
+    ${sha256sums[@]}
     'ff97d711f3c71cbe86ef93e1d04a681af5c3e95e0188f4b411064ced2819d719'
 )
 sha256sums_aarch64=(
+    ${sha256sums[@]}
     '8961d5a61e3006438d140accd88a04f72796cc1c147e048b1751e03e5ce4f4ed'
 )
 sha256sums_loong64=(
+    ${sha256sums[@]}
     '90c3276fd8e338eb50162bcb0eef9a41cb553187851d0d5f360e3d010138c8b9'
 )
 
