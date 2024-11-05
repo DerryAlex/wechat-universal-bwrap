@@ -1,13 +1,13 @@
-# Maintainer: 7Ji <pugokushin at gmail dot com>
-# Maintainer: leaeasy <leaeasy at gmail dot com>
-# Maintainer: devome <evinedeng at hotmail dot com>
+# Maintainer: 7Ji <pugokushin@gmail.com>
+# Contributor: leaeasy <leaeasy@gmail.com>
+# Contributor: devome <evinedeng@hotmail.com>
 
 _pkgname=wechat-universal
 pkgname=${_pkgname}-bwrap
 pkgver=4.0.0.23
 pkgrel=1
 pkgdesc="WeChat (Universal) with bwrap sandbox"
-arch=('x86_64' 'aarch64' 'loong64')
+arch=('amd64' 'aarch64' 'loong64')
 url="https://weixin.qq.com"
 license=('proprietary' 'GPLv3') # GPLv3 as desktop-app was statically linked-in, refer: https://aur.archlinux.org/packages/wechat-universal-bwrap#comment-964013
 install="${_pkgname}".install
@@ -15,20 +15,20 @@ provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 replaces=('wechat-beta'{,-bwrap})
 depends=(
-    'alsa-lib'
+    'libasound2'
     'at-spi2-core'
     'bubblewrap'
     'flatpak-xdg-utils'
-    'libxcomposite'
-    'libxkbcommon-x11'
-    'libxrandr'
-    'mesa'
-    'nss'
-    'pango'
-    'xcb-util-image'
-    'xcb-util-keysyms'
-    'xcb-util-renderutil'
-    'xcb-util-wm'
+    'libxcomposite1'
+    'libxkbcommon-x11-0'
+    'libxrandr2'
+    'libglx-mesa0'
+    'libnss3'
+    'libpango-1.0-0'
+    'libxcb-image0'
+    'libxcb-keysyms1'
+    'libxcb-render-util0'
+    'libxcb-icccm4'
     'xdg-desktop-portal'
     'xdg-user-dirs'
 )
@@ -49,25 +49,28 @@ source=(
 _deb_stem="com.tencent.wechat_${pkgver}"
 _deb_url_common="https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/${_deb_stem}"
 
-source_x86_64=("${_deb_url_common}_amd64.deb")
-source_aarch64=("${_deb_url_common}_arm64.deb")
-source_loong64=("${_deb_url_common}_loongarch64.deb")
+source_amd64=(${source[@]} "${_deb_url_common}_amd64.deb")
+source_aarch64=(${source[@]} "${_deb_url_common}_arm64.deb")
+source_loong64=(${source[@]} "${_deb_url_common}_loongarch64.deb")
 
 noextract=("${_deb_stem}"_{amd,arm,loongarch}64.deb )
 
 sha256sums=(
     'b25598b64964e4a38f8027b9e8b9a412c6c8d438a64f862d1b72550ac8c75164'
-    'e3beb121edcb1e6f065226aec9137a7e38fd73af4030ee0e179427162a230fdc'
+    'ced3065542150a6982ca2fb23cb259c6783f05b8ca1b592891ca7a8c2ef0bf22'
     '0563472cf2c74710d1fe999d397155f560d3ed817e04fd9c35077ccb648e1880'
 )
 
-sha256sums_x86_64=(
+sha256sums_amd64=(
+    ${sha256sums[@]}
     '437826a3cdef25d763f69e29ae10479b5e8b2ba080b56de5b5de63e05a8f7203'
 )
 sha256sums_aarch64=(
+    ${sha256sums[@]}
     'a08b0f6c4930d7ecd7a73bd701511d9b29178dbe73ba51c04f09eb9e1b3190f7'
 )
 sha256sums_loong64=(
+    ${sha256sums[@]}
     '82b8fdc861d965a836d25e6cf0881c927bd4bf3d1f04791a9202ac39efab8662'
 )
 

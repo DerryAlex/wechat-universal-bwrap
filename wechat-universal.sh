@@ -162,13 +162,13 @@ try_start() {
         # /usr
         --ro-bind /usr{,}
         --symlink usr/lib /lib
-        --symlink usr/lib /lib64
+        --symlink usr/lib64 /lib64
         --symlink usr/bin /bin
         --symlink usr/bin /sbin
         --bind /usr/bin/{true,lsblk}
 
         # /sandbox
-        --ro-bind /{usr/lib/flatpak-xdg-utils,sandbox}/xdg-open
+        --ro-bind /{usr/libexec/flatpak-xdg-utils,sandbox}/xdg-open
         --ro-bind /{usr/lib/wechat-universal/usr/bin,sandbox}/dde-file-manager
 
         # /dev
